@@ -1,0 +1,7 @@
+node_modules
+.swc
+.next
+.env
+tasks.md
+.DS_Store
+out

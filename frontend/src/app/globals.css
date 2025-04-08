@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+    --color-primary-text: #363535;
+    --color-border-medium: #6d6d6d;
+    --color-primary-background: #a5d2e8;
+    --color-logo-text: var(--color-sky-800);
+    --color-primary-button: var(--color-sky-200);
+    --color-border-light: var(--color-gray-300);
+    --color-toast-background-error: var(--color-red-300);
+    --color-toast-background-success: var(--color-green-300);
+    --color-toast-background-info: var(--color-blue-300);
+    --color-loader-background: var(--color-sky-900);
+}
+
+* {
+  font-family: "Raleway", sans-serif;
+  color: var(--color-primary-text);
+  color: rgb(94, 94, 94)
+}
