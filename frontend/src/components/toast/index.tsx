@@ -13,10 +13,10 @@ const Toast = memo(() => {
 
   const toastTypeClass =
     toastType === "error"
-      ? "bg-toast-background-error"
+      ? "bg-error-light"
       : toastType === "info"
-      ? "bg-toast-background-info"
-      : "bg-toast-background-success";
+      ? "bg-info-light"
+      : "bg-success-light";
 
   return (
     <div

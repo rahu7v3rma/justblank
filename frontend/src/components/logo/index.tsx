@@ -7,10 +7,10 @@ const Logo = memo(() => {
   const router = useRouter();
   return (
     <TextButton
-      className="!text-2xl !font-bold tracking-wider px-1 rounded-md !text-logo-text"
+      className="!text-2xl !font-bold tracking-wider px-1 rounded-md !text-logo-text !text-slate-600"
       onClick={() => router.push("/")}
     >
-      softools
+      just:blank
     </TextButton>
   );
 });

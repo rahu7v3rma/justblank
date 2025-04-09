@@ -5,3 +5,4 @@ node_modules
 tasks.md
 .DS_Store
 out
+build

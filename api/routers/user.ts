@@ -3,14 +3,14 @@ import { authMiddleware } from "../middlewares/auth";
 import UserModel from "../models/user";
 import { comparePassword, hashPassword } from "../utils/bcrypt";
 import { generateToken } from "../utils/jwt";
-import { LoginSchema, SignUpSchema } from "../utils/schema";
+import { LoginSchema, RegisterSchema } from "../utils/schema";
 import { UserRequest } from "../utils/types";
 
 const UserRouter = Router();
 
-UserRouter.post("/signup", async (req, res) => {
+UserRouter.post("/register", async (req, res) => {
   const requestBody = req.body;
-  const parsedBody = SignUpSchema.safeParse(requestBody);
+  const parsedBody = RegisterSchema.safeParse(requestBody);
   if (!parsedBody.success) {
     const fieldErrors = parsedBody.error.flatten().fieldErrors;
     const firstErrorMessage = Object.values(fieldErrors)[0][0];
@@ -32,7 +32,12 @@ UserRouter.post("/signup", async (req, res) => {
     return;
   }
   const hashedPassword = await hashPassword(password);
-  await UserModel.create({ name, email, password: hashedPassword });
+  await UserModel.create({
+    name,
+    email,
+    password: hashedPassword,
+    role: "user",
+  });
   res.status(201).json({
     success: true,
     message: "User created successfully",
@@ -86,6 +91,7 @@ UserRouter.get(
       _id: req.user._id,
       name: req.user.name,
       email: req.user.email,
+      role: req.user.role,
     };
     res.status(200).json({
       success: true,

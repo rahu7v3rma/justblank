@@ -22,7 +22,6 @@ export const authMiddleware: RequestHandler = async (
       .json({ success: false, message: "Unauthorized", data: null });
     return;
   }
-  console.log({ decodedToken });
   const user = await UserModel.findById(decodedToken);
   if (!user) {
     res
@@ -31,5 +30,18 @@ export const authMiddleware: RequestHandler = async (
     return;
   }
   req.user = user;
+  next();
+};
+
+export const isSuperUserMiddleware: RequestHandler = async (
+  req: UserRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = req.user;
+  if (user.role !== "superuser") {
+    res.status(403).json({ success: false, message: "Forbidden", data: null });
+    return;
+  }
   next();
 };

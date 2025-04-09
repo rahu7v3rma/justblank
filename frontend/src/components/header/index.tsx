@@ -6,6 +6,9 @@ import TextButton from "../buttons/TextButton";
 import Logo from "../logo";
 import Avatar from "../avatar";
 import { useRouter } from "next/navigation";
+import { FaUser } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+import BlankButton from "../buttons/BlankButton";
 
 const Header = memo(() => {
   const { user } = useContext(AuthContext);
@@ -14,7 +17,6 @@ const Header = memo(() => {
     <div className="px-6 py-4 flex justify-between items-center shadow-sm">
       <div className="flex items-center gap-10">
         <Logo />
-        {/* <Dropdown label="SEO Tools" options={["Google Keyword Tool"]} /> */}
       </div>
       <div className="flex gap-4">
         {user ? (
@@ -27,17 +29,21 @@ const Header = memo(() => {
                   .map((name) => name.charAt(0))
                   .join("") || ""
               }
-              onClick={() => router.push("/profile")}
+              onClick={() => router.push("/account")}
             />
           </>
         ) : (
           <>
-            <TextButton className="text-[15px]">
-              <Link href="/login">Login</Link>
-            </TextButton>
-            <TextButton className="text-[15px]">
-              <Link href="/signup">Signup</Link>
-            </TextButton>
+            <BlankButton>
+              <Link href="/account">
+                <FaUser size={20} />
+              </Link>
+            </BlankButton>
+            <BlankButton>
+              <Link href="/cart">
+                <FaShoppingCart size={20} />
+              </Link>
+            </BlankButton>
           </>
         )}
       </div>

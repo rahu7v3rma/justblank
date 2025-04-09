@@ -24,13 +24,13 @@ const request = async (url: string, method: string, data: any) => {
   }
 };
 
-export const signup = async (
+export const register = async (
   name: string,
   email: string,
   password: string,
   confirmPassword: string
 ) => {
-  const response = await request("/user/signup", "POST", {
+  const response = await request("/user/register", "POST", {
     name,
     email,
     password,
@@ -54,21 +54,5 @@ export const getProfile = async () => {
 
 export const connectAPI = async () => {
   const response = await request("/connect", "GET", {});
-  return response;
-};
-
-export const getCriteriaIdList = async () => {
-  const response = await request("/gkt/creteria-id-list", "GET", {});
-  return response;
-};
-
-export const generateKeywords = async (
-  keyword: string,
-  countryCriteriaId: string
-) => {
-  const response = await request("/gkt/generate-keywords", "POST", {
-    keyword,
-    countryCriteriaId,
-  });
   return response;
 };

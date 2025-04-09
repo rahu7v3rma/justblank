@@ -1,7 +1,7 @@
 import { isStrongPassword } from "validator";
 import { z } from "zod";
 
-export const SignUpSchema = z
+export const RegisterSchema = z
   .object({
     name: z.string({ message: "Name is required" }).min(1, {
       message: "Name is required",

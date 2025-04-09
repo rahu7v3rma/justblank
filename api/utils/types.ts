@@ -8,6 +8,7 @@ export interface User extends Document {
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  role: string;
 }
 
 export interface UserRequest extends Request {

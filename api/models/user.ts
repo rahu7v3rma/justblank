@@ -7,6 +7,7 @@ const UserSchema = new Schema<User>({
   password: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  role: String,
 });
 
 const UserModel = model<User>("User", UserSchema);

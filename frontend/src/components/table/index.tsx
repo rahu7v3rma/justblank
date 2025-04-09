@@ -24,16 +24,11 @@ const Table = memo(
         className={`flex flex-col gap-2 items-center justify-center ${className}`}
       >
         <Heading type="h2">{title}</Heading>
-        <table
-          className={`w-full border border-border-light rounded-md block `}
-        >
+        <table className={`w-full border rounded-md block `}>
           <thead className="">
             <tr>
               {columns.map((column) => (
-                <th
-                  key={column.key}
-                  className="p-2 border-b border-border-light"
-                >
+                <th key={column.key} className="p-2 border-b ">
                   <Heading type="h5">{column.label}</Heading>
                 </th>
               ))}

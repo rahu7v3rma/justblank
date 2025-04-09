@@ -12,7 +12,7 @@ const Button = memo(
   }) => {
     return (
       <button
-        className={`bg-primary-button w-full p-2 rounded-md font-bold cursor-pointer hover:opacity-70 ${className}`}
+        className={`w-full p-2 rounded-md font-bold cursor-pointer hover:opacity-70 bg-button-light ${className}`}
         onClick={onClick}
       >
         {children}

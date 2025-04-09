@@ -1,8 +1,10 @@
 "use client";
 import Button from "@/components/buttons/Button";
+import TextButton from "@/components/buttons/TextButton";
 import Heading from "@/components/heading";
 import Input from "@/components/input";
 import { AuthContext } from "@/context/auth";
+import Link from "next/link";
 import { memo, useCallback, useContext } from "react";
 import { useForm } from "react-hook-form";
 
@@ -51,6 +53,9 @@ const Login = memo(() => {
         onChange={(e) => onChange("password", e.target.value)}
       />
       <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
+      <TextButton>
+        Don't have an account? <Link href="/register">Register</Link>
+      </TextButton>
     </div>
   );
 });

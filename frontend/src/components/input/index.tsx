@@ -22,7 +22,7 @@ const Input = memo(
         <input
           type={type}
           placeholder={placeholder}
-          className={`text-sm border-[1px] border-border-light rounded-md p-2 ${className}`}
+          className={`border-border-light text-sm border-[1px] rounded-md p-2 ${className}`}
           value={value}
           onChange={onChange}
         />
@@ -75,7 +75,7 @@ export const SearchInput = memo(
         <input
           type={type}
           placeholder={placeholder}
-          className={`text-sm border-[1px] border-border-light rounded-md p-2 ${className}`}
+          className={`text-sm border-[1px] rounded-md p-2 ${className}`}
           value={selectedLabel}
           onChange={(e) => {
             setSearchValue(e.target.value);
@@ -87,7 +87,7 @@ export const SearchInput = memo(
           <Text className="!text-red-500 !text-xs">{errorMessage}</Text>
         )}
         {options && options?.length > 0 && isOpen && (
-          <div className="border border-border-light rounded-md  p-2 flex flex-col gap-1 w-full absolute top-full left-0 bg-white h-[200px] overflow-scroll mt-2">
+          <div className="border rounded-md  p-2 flex flex-col gap-1 w-full absolute top-full left-0 bg-white h-[200px] overflow-scroll mt-2">
             {options
               .filter((option) =>
                 option.label.toLowerCase().includes(searchValue.toLowerCase())

@@ -4,7 +4,6 @@ import express from "express";
 import morgan from "morgan";
 import UserRouter from "../routers/user";
 import { env } from "./env";
-import GKTRouter from "../routers/googleKeywordTool";
 
 dotenv.config();
 
@@ -15,7 +14,6 @@ app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use(morgan("dev"));
 
 app.use("/user", UserRouter);
-app.use("/gkt", GKTRouter);
 
 app.get("/connect", async (req, res) => {
   res.send({

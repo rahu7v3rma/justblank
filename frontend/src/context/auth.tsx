@@ -3,7 +3,7 @@
 import {
   getProfile as apiGetProfile,
   login as apiLogin,
-  signup as apiSignup,
+  register as apiRegister,
 } from "@/utils/api";
 import { removeAuthToken, setAuthToken } from "@/utils/localStorage";
 import { AuthContextType, User } from "@/utils/types";
@@ -17,6 +17,12 @@ import {
 } from "react";
 import { LoaderContext } from "./loader";
 import { ToastContext } from "./toast";
+import {
+  setUser as cookieSetUser,
+  removeUser as cookieRemoveUser,
+  removeAuthToken as cookieRemoveAuthToken,
+  setAuthToken as cookieSetAuthToken,
+} from "@/utils/clientCookies";
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
@@ -28,12 +34,17 @@ export const AuthContext = createContext<AuthContextType>({
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
+  const updateUser = useCallback(() => {
     apiGetProfile().then((response) => {
       if (response.success) {
         setUser(response.data);
+        cookieSetUser(response.data);
       }
     });
+  }, []);
+
+  useEffect(() => {
+    updateUser();
   }, []);
 
   const { openLoader, closeLoader } = useContext(LoaderContext);
@@ -49,13 +60,18 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       confirmPassword: string
     ) => {
       openLoader();
-      const response = await apiSignup(name, email, password, confirmPassword);
+      const response = await apiRegister(
+        name,
+        email,
+        password,
+        confirmPassword
+      );
       closeLoader();
       if (!response.success) {
         triggerToast(response.message, "error");
         return;
       }
-      triggerToast("Signup successful", "success");
+      triggerToast("Registration successful", "success");
       router.push("/login");
     },
     []
@@ -70,29 +86,21 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     setAuthToken(response.data.token);
+    cookieSetAuthToken(response.data.token);
     triggerToast("Login successful", "success");
+    updateUser();
   }, []);
 
   const logout = useCallback(() => {
     openLoader();
     removeAuthToken();
+    cookieRemoveAuthToken();
     setUser(null);
+    cookieRemoveUser();
     triggerToast("Logout successful", "success");
     closeLoader();
+    router.push("/login");
   }, []);
-
-  useEffect(() => {
-    if (
-      user &&
-      (window.location.pathname === "/login" ||
-        window.location.pathname === "/signup")
-    ) {
-      router.push("/profile");
-    }
-    if (!user && window.location.pathname === "/profile") {
-      router.push("/login");
-    }
-  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, signup, login, logout }}>

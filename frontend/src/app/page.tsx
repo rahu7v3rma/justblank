@@ -1,5 +1,5 @@
 "use client";
-import GoogleKeywordTool from "@/components/google-keyword-tool";
+import SliderComponent from "@/components/slider";
 import { LoaderContext } from "@/context/loader";
 import { ToastContext } from "@/context/toast";
 import { connectAPI } from "@/utils/api";
@@ -24,7 +24,7 @@ const HomePage = () => {
   }, []);
   return (
     <div className="p-10">
-      <GoogleKeywordTool />
+      <SliderComponent />
     </div>
   );
 };
