@@ -56,3 +56,11 @@ export const connectAPI = async () => {
   const response = await request("/connect", "GET", {});
   return response;
 };
+
+export const verifyEmail = async (email: string, verificationCode: string) => {
+  const response = await request("/user/verify-email", "POST", {
+    email,
+    verificationCode,
+  });
+  return response;
+};

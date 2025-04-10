@@ -85,9 +85,9 @@ const Signup = memo(() => {
         onChange={(e) => onChange("confirmPassword", e.target.value)}
       />
       <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-      <TextButton>
-        Already have an account? <Link href="/login">Login</Link>
-      </TextButton>
+      <Link href="/login">
+        <TextButton>Already have an account? Login</TextButton>
+      </Link>
     </div>
   );
 });

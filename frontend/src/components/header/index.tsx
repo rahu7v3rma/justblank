@@ -2,13 +2,13 @@
 import { AuthContext } from "@/context/auth";
 import Link from "next/link";
 import { memo, useContext } from "react";
-import TextButton from "../buttons/TextButton";
 import Logo from "../logo";
 import Avatar from "../avatar";
 import { useRouter } from "next/navigation";
 import { FaUser } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import BlankButton from "../buttons/BlankButton";
+import UserTag from "../user-tag";
 
 const Header = memo(() => {
   const { user } = useContext(AuthContext);
@@ -17,6 +17,7 @@ const Header = memo(() => {
     <div className="px-6 py-4 flex justify-between items-center shadow-sm">
       <div className="flex items-center gap-10">
         <Logo />
+        <UserTag />
       </div>
       <div className="flex gap-4">
         {user ? (

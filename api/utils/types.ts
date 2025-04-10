@@ -9,6 +9,8 @@ export interface User extends Document {
   createdAt: Date;
   updatedAt: Date;
   role: string;
+  isEmailVerified: boolean;
+  emailVerificationCode: string;
 }
 
 export interface UserRequest extends Request {

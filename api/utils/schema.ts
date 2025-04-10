@@ -39,3 +39,14 @@ export const GenerateKeywordsRequestSchema = z.object({
     message: "Criteria ID is required",
   }),
 });
+
+export const VerifyEmailSchema = z.object({
+  email: z.string({ message: "Email is required" }).email({
+    message: "Invalid email",
+  }),
+  verificationCode: z
+    .string({ message: "Verification code is required" })
+    .min(1, {
+      message: "Verification code is required",
+    }),
+});

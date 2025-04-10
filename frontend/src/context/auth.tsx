@@ -72,7 +72,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         return;
       }
       triggerToast("Registration successful", "success");
-      router.push("/login");
+      router.push("/verify-email");
     },
     []
   );
@@ -89,6 +89,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     cookieSetAuthToken(response.data.token);
     triggerToast("Login successful", "success");
     updateUser();
+    router.push("/");
   }, []);
 
   const logout = useCallback(() => {

@@ -29,6 +29,12 @@ export const authMiddleware: RequestHandler = async (
       .json({ success: false, message: "Unauthorized", data: null });
     return;
   }
+  if (!user.isEmailVerified) {
+    res
+      .status(401)
+      .json({ success: false, message: "Unauthorized", data: null });
+    return;
+  }
   req.user = user;
   next();
 };

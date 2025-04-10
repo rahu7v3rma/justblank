@@ -8,6 +8,8 @@ const UserSchema = new Schema<User>({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   role: String,
+  isEmailVerified: Boolean,
+  emailVerificationCode: String,
 });
 
 const UserModel = model<User>("User", UserSchema);

@@ -16,7 +16,8 @@ export async function middleware(request: NextRequest) {
     }
     if (
       request.nextUrl.pathname.includes("login") ||
-      request.nextUrl.pathname.includes("register")
+      request.nextUrl.pathname.includes("register") ||
+      request.nextUrl.pathname.includes("verify-email")
     ) {
       return NextResponse.redirect(new URL("/account", request.url));
     }

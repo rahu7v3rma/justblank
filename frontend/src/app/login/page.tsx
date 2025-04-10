@@ -53,9 +53,9 @@ const Login = memo(() => {
         onChange={(e) => onChange("password", e.target.value)}
       />
       <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
-      <TextButton>
-        Don't have an account? <Link href="/register">Register</Link>
-      </TextButton>
+      <Link href="/register">
+        <TextButton>Don't have an account? Register</TextButton>
+      </Link>
     </div>
   );
 });
