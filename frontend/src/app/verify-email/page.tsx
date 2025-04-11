@@ -3,7 +3,7 @@ import Button from "@/components/buttons/Button";
 import Heading from "@/components/heading";
 import Input from "@/components/input";
 import { ToastContext } from "@/context/toast";
-import { verifyEmail } from "@/utils/api";
+import { verifyEmail } from "@/services/api";
 import { useRouter } from "next/navigation";
 import { useCallback, useContext } from "react";
 import { useForm } from "react-hook-form";

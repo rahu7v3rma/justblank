@@ -4,7 +4,7 @@ import {
   getProfile as apiGetProfile,
   login as apiLogin,
   register as apiRegister,
-} from "@/utils/api";
+} from "@/services/api";
 import { removeAuthToken, setAuthToken } from "@/utils/localStorage";
 import { AuthContextType, User } from "@/utils/types";
 import { useRouter } from "next/navigation";
@@ -111,3 +111,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default AuthProvider;
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+};

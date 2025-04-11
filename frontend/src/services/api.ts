@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAuthToken } from "./localStorage";
+import { getAuthToken } from "../utils/localStorage";
 
 const request = async (url: string, method: string, data: any) => {
   try {
@@ -62,5 +62,10 @@ export const verifyEmail = async (email: string, verificationCode: string) => {
     email,
     verificationCode,
   });
+  return response;
+};
+
+export const getUsers = async (role: string) => {
+  const response = await request(`/superuser/users?role=${role}`, "GET", {});
   return response;
 };

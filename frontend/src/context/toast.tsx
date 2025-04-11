@@ -1,7 +1,7 @@
 "use client";
 
 import { ToastContextType } from "@/utils/types";
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 export const ToastContext = createContext<ToastContextType>({
   isOpen: false,
@@ -49,3 +49,7 @@ const ToastProvider = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default ToastProvider;
+
+export const useToast = () => {
+  return useContext(ToastContext);
+};

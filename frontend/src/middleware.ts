@@ -5,8 +5,6 @@ import { getUser } from "./utils/serverCookies";
 export async function middleware(request: NextRequest) {
   const user = await getUser();
 
-  console.log(user, request.nextUrl.pathname, "middleware");
-
   if (user) {
     if (
       request.nextUrl.pathname.startsWith("/superuser") &&

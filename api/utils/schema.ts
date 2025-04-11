@@ -50,3 +50,20 @@ export const VerifyEmailSchema = z.object({
       message: "Verification code is required",
     }),
 });
+
+export const GetUsersSchema = z.object({
+  role: z.string({ message: "Role is required" }).min(1, {
+    message: "Role is required",
+  }),
+});
+
+export const SuperuserUsersResponseSchema = z.object({
+  users: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      email: z.string(),
+      role: z.string(),
+    })
+  ),
+});

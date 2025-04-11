@@ -21,21 +21,23 @@ const Table = memo(
   }) => {
     return (
       <div
-        className={`flex flex-col gap-2 items-center justify-center ${className}`}
+        className={`flex flex-col gap-2 items-center justify-center border-border-light border rounded-md ${className}`}
       >
-        <Heading type="h2">{title}</Heading>
-        <table className={`w-full border rounded-md block `}>
+        <table className={`w-full`}>
           <thead className="">
             <tr>
               {columns.map((column) => (
-                <th key={column.key} className="p-2 border-b ">
-                  <Heading type="h5">{column.label}</Heading>
+                <th
+                  key={column.key}
+                  className="p-2 border-b border-border-light"
+                >
+                  <Heading type="h6">{column.label}</Heading>
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {data.map((row) => (
+            {data?.map((row) => (
               <tr key={row.id}>
                 {columns.map((column) => (
                   <td key={column.key} className="text-center px-2 py-1">
@@ -46,6 +48,9 @@ const Table = memo(
             ))}
           </tbody>
         </table>
+        {data?.length == 0 && (
+          <Text className="text-center w-full py-2">No data found</Text>
+        )}
       </div>
     );
   }

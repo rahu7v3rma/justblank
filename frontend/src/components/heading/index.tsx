@@ -21,8 +21,12 @@ const Heading = memo(
         ? "text-xl"
         : type === "h5"
         ? "text-lg"
+        : type === "h6"
+        ? "text-sm"
         : "text-md";
-    return <span className={`${textClass} font-bold ${className}`}>{children}</span>;
+    return (
+      <span className={`${textClass} font-bold ${className}`}>{children}</span>
+    );
   }
 );
 

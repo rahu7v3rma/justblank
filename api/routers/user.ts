@@ -43,7 +43,7 @@ UserRouter.post("/register", async (req, res) => {
     name,
     email,
     password: hashedPassword,
-    role: "user",
+    role: "customer",
     emailVerificationCode: emailVerificationCode.toString(),
     isEmailVerified: false,
   });

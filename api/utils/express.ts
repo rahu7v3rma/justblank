@@ -4,6 +4,7 @@ import express from "express";
 import morgan from "morgan";
 import UserRouter from "../routers/user";
 import { env } from "./env";
+import SuperUserRouter from "../routers/superuser";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use(morgan("dev"));
 
 app.use("/user", UserRouter);
+app.use("/superuser", SuperUserRouter);
 
 app.get("/connect", async (req, res) => {
   res.send({

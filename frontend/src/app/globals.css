@@ -9,6 +9,7 @@
   --color-success-light: var(--color-green-200);
   --color-info-light: var(--color-blue-200);
   --color-primary-light: var(--color-slate-300);
+  --color-primary-lighter: var(--color-slate-200);
 }
 
 * {

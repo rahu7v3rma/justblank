@@ -2,7 +2,7 @@
 import SliderComponent from "@/components/slider";
 import { LoaderContext } from "@/context/loader";
 import { ToastContext } from "@/context/toast";
-import { connectAPI } from "@/utils/api";
+import { connectAPI } from "@/services/api";
 import { useContext, useEffect } from "react";
 
 const HomePage = () => {
