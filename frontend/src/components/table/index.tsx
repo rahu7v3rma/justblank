@@ -21,7 +21,7 @@ const Table = memo(
   }) => {
     return (
       <div
-        className={`flex flex-col gap-2 items-center justify-center border-border-light border rounded-md ${className}`}
+        className={`flex flex-col gap-2 items-center justify-center border-primary-light border rounded-md ${className}`}
       >
         <table className={`w-full`}>
           <thead className="">
@@ -29,7 +29,7 @@ const Table = memo(
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className="p-2 border-b border-border-light"
+                  className="p-2 border-b border-primary-light"
                 >
                   <Heading type="h6">{column.label}</Heading>
                 </th>

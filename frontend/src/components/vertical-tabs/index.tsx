@@ -12,7 +12,7 @@ const VerticalTabs = memo(
     setSelectedOption: (option: string) => void;
   }) => {
     return (
-      <div className="w-[300px] border border-border-light rounded-md p-2">
+      <div className="w-[300px] border border-primary-light rounded-md p-2">
         {options?.map((option) => (
           <div
             key={option}

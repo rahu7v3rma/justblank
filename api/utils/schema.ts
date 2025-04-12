@@ -57,6 +57,18 @@ export const GetUsersSchema = z.object({
   }),
 });
 
+export const SuperuserUserResponseSchema = z.object({
+  user: z.object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    role: z.string(),
+    isEmailVerified: z.boolean(),
+    emailVerificationCode: z.string(),
+    password: z.string(),
+  }),
+});
+
 export const SuperuserUsersResponseSchema = z.object({
   users: z.array(
     z.object({
@@ -64,6 +76,36 @@ export const SuperuserUsersResponseSchema = z.object({
       name: z.string(),
       email: z.string(),
       role: z.string(),
+      isEmailVerified: z.boolean(),
+      emailVerificationCode: z.string(),
+      password: z.string(),
     })
   ),
 });
+
+export const SuperuserCreateUserSchema = z
+  .object({
+    name: z.string({ message: "Name is required" }).min(1, {
+      message: "Name is required",
+    }),
+    email: z.string({ message: "Email is required" }).email({
+      message: "Invalid email",
+    }),
+    password: z.string({ message: "Password is required" }).min(1, {
+      message: "Password is required",
+    }),
+    confirmPassword: z.string({ message: "Confirm password is required" }),
+    isEmailVerified: z.boolean({ message: "Email verified is required" }),
+    role: z.string({ message: "Role is required" }).min(1, {
+      message: "Role is required",
+    }),
+    emailVerificationCode: z
+      .string({ message: "Email verification code is required" })
+      .min(1, {
+        message: "Email verification code is required",
+      }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });

@@ -22,7 +22,7 @@ const Input = memo(
         <input
           type={type}
           placeholder={placeholder}
-          className={`border-border-light text-sm border-[1px] rounded-md p-2 ${className}`}
+          className={`border-primary-light text-sm border-[1px] rounded-md p-2 ${className}`}
           value={value}
           onChange={onChange}
         />
