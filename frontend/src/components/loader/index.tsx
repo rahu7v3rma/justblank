@@ -19,4 +19,6 @@ const Loader = memo(() => {
   );
 });
 
+Loader.displayName = 'Loader';
+
 export default Loader;

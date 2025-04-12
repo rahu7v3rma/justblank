@@ -21,7 +21,7 @@ const HomePage = () => {
       .finally(() => {
         closeLoader();
       });
-  }, []);
+  }, [openLoader, closeLoader, triggerToast]);
   return (
     <div className="p-10">
       <SliderComponent />

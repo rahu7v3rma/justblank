@@ -23,6 +23,7 @@ import {
   removeAuthToken as cookieRemoveAuthToken,
   setAuthToken as cookieSetAuthToken,
 } from "@/utils/clientCookies";
+import { getUserHomePath } from "@/utils/auth";
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
@@ -33,24 +34,24 @@ export const AuthContext = createContext<AuthContextType>({
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
 
   const updateUser = useCallback(() => {
     apiGetProfile().then((response) => {
       if (response.success) {
         setUser(response.data);
         cookieSetUser(response.data);
+        router.push(getUserHomePath(response.data.role));
       }
     });
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     updateUser();
-  }, []);
+  }, [updateUser]);
 
   const { openLoader, closeLoader } = useContext(LoaderContext);
   const { triggerToast } = useContext(ToastContext);
-
-  const router = useRouter();
 
   const signup = useCallback(
     async (
@@ -74,7 +75,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       triggerToast("Registration successful", "success");
       router.push("/verify-email");
     },
-    []
+    [openLoader, closeLoader, triggerToast, router]
   );
 
   const login = useCallback(async (email: string, password: string) => {
@@ -89,8 +90,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     cookieSetAuthToken(response.data.token);
     triggerToast("Login successful", "success");
     updateUser();
-    router.push("/");
-  }, []);
+  }, [openLoader, closeLoader, triggerToast, updateUser, router]);
 
   const logout = useCallback(() => {
     openLoader();
@@ -101,7 +101,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     triggerToast("Logout successful", "success");
     closeLoader();
     router.push("/login");
-  }, []);
+  }, [closeLoader, openLoader, triggerToast, router]);
 
   return (
     <AuthContext.Provider value={{ user, signup, login, logout }}>

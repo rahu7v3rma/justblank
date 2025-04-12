@@ -34,6 +34,8 @@ const Input = memo(
   }
 );
 
+Input.displayName = 'Input';
+
 export const SearchInput = memo(
   ({
     type,
@@ -111,5 +113,7 @@ export const SearchInput = memo(
     );
   }
 );
+
+SearchInput.displayName = 'SearchInput';
 
 export default Input;

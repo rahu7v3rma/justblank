@@ -21,4 +21,6 @@ const Button = memo(
   }
 );
 
+Button.displayName = 'Button';
+
 export default Button;

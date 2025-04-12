@@ -36,7 +36,7 @@ const VerifyEmail = () => {
         }
       });
     },
-    []
+    [router, triggerToast]
   );
 
   return (

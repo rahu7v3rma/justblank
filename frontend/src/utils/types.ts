@@ -1,10 +1,12 @@
+import { ReactNode } from 'react';
+
 export type ToastContextType = {
   isOpen: boolean;
   toastMessage: string;
-  toastType: "error" | "success" | "info";
+  toastType: 'error' | 'success' | 'info';
   triggerToast: (
     toastMessage: string,
-    toastType: "error" | "success" | "info"
+    toastType: 'error' | 'success' | 'info'
   ) => void;
   toastTitle: string;
   setToastTitle: (toastTitle: string) => void;
@@ -15,6 +17,13 @@ export type User = {
   name: string;
   email: string;
   role: string;
+};
+
+export type ModalContextType = {
+  isOpen: boolean;
+  openModal: (ModalContent?: ReactNode) => void;
+  closeModal: () => void;
+  ModalContent: ReactNode | null;
 };
 
 export type AuthContextType = {

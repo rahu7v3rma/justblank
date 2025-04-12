@@ -1,11 +1,13 @@
-import Footer from "@/components/footer";
-import Header from "@/components/header";
-import Toast from "@/components/toast";
-import AuthProvider from "@/context/auth";
-import "./globals.css";
-import ToastProvider from "@/context/toast";
-import LoaderProvider from "@/context/loader";
-import Loader from "@/components/loader";
+import Footer from '@/components/footer';
+import Header from '@/components/header';
+import Toast from '@/components/toast';
+import AuthProvider from '@/context/auth';
+import './globals.css';
+import ToastProvider from '@/context/toast';
+import LoaderProvider from '@/context/loader';
+import Loader from '@/components/loader';
+import ModalProvider from '@/context/modal';
+import Modal from '@/components/modal';
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
@@ -16,17 +18,22 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       <body>
         <ToastProvider>
           <LoaderProvider>
-            <AuthProvider>
-              <div className="min-h-screen relative">
-                <Header />
-                <div className="p-4 flex flex-col items-center">{children}</div>
-                <div className="absolute bottom-0 w-full">
-                  <Footer />
+            <ModalProvider>
+              <AuthProvider>
+                <div className="min-h-screen relative">
+                  <Header />
+                  <div className="p-4 flex flex-col items-center">
+                    {children}
+                  </div>
+                  <div className="absolute bottom-0 w-full">
+                    <Footer />
+                  </div>
                 </div>
-              </div>
-              <Toast />
-              <Loader />
-            </AuthProvider>
+                <Toast />
+                <Loader />
+                <Modal />
+              </AuthProvider>
+            </ModalProvider>
           </LoaderProvider>
         </ToastProvider>
       </body>

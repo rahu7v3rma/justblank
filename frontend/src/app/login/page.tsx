@@ -1,12 +1,12 @@
-"use client";
-import Button from "@/components/buttons/Button";
-import TextButton from "@/components/buttons/TextButton";
-import Heading from "@/components/heading";
-import Input from "@/components/input";
-import { AuthContext } from "@/context/auth";
-import Link from "next/link";
-import { memo, useCallback, useContext } from "react";
-import { useForm } from "react-hook-form";
+'use client';
+import Button from '@/components/buttons/Button';
+import TextButton from '@/components/buttons/TextButton';
+import Heading from '@/components/heading';
+import Input from '@/components/input';
+import { AuthContext } from '@/context/auth';
+import Link from 'next/link';
+import { memo, useCallback, useContext } from 'react';
+import { useForm } from 'react-hook-form';
 
 const Login = memo(() => {
   const {
@@ -16,15 +16,18 @@ const Login = memo(() => {
     setValue,
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
-  const onChange = useCallback((name: "email" | "password", value: string) => {
-    setValue(name, value, { shouldValidate: true });
-  }, []);
+  const onChange = useCallback(
+    (name: 'email' | 'password', value: string) => {
+      setValue(name, value, { shouldValidate: true });
+    },
+    [setValue]
+  );
 
   const { login } = useContext(AuthContext);
 
@@ -32,7 +35,7 @@ const Login = memo(() => {
     async (formData: { email: string; password: string }) => {
       login(formData.email, formData.password);
     },
-    []
+    [login]
   );
 
   return (
@@ -42,22 +45,24 @@ const Login = memo(() => {
         type="text"
         placeholder="Email"
         errorMessage={errors.email?.message}
-        value={watch("email")}
-        onChange={(e) => onChange("email", e.target.value)}
+        value={watch('email')}
+        onChange={(e) => onChange('email', e.target.value)}
       />
       <Input
         type="password"
         placeholder="Password"
         errorMessage={errors.password?.message}
-        value={watch("password")}
-        onChange={(e) => onChange("password", e.target.value)}
+        value={watch('password')}
+        onChange={(e) => onChange('password', e.target.value)}
       />
       <Button onClick={handleSubmit(onSubmit)}>Submit</Button>
       <Link href="/register">
-        <TextButton>Don't have an account? Register</TextButton>
+        <TextButton>Don&apos;t have an account? Register</TextButton>
       </Link>
     </div>
   );
 });
+
+Login.displayName = 'Login';
 
 export default Login;
