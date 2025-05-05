@@ -26,9 +26,9 @@ const Table = memo(
         <table className={`w-full`}>
           <thead className="">
             <tr>
-              {columns.map((column) => (
+              {columns.map((column, index) => (
                 <th
-                  key={column.key}
+                  key={index}
                   className="p-2 border-b border-primary-light"
                 >
                   <Heading type="h6">{column.label}</Heading>
@@ -37,8 +37,8 @@ const Table = memo(
             </tr>
           </thead>
           <tbody>
-            {data?.map((row) => (
-              <tr key={row.id}>
+            {data?.map((row, index) => (
+              <tr key={index}>
                 {columns.map((column) => (
                   <td key={column.key} className="text-center px-2 py-1">
                     <Text>{row[column.key]}</Text>
@@ -55,5 +55,7 @@ const Table = memo(
     );
   }
 );
+
+Table.displayName = 'Table';
 
 export default Table;

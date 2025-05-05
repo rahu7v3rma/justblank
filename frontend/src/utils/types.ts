@@ -10,6 +10,10 @@ export type ToastContextType = {
   ) => void;
   toastTitle: string;
   setToastTitle: (toastTitle: string) => void;
+  allToasts: {
+    message: string;
+    type: 'error' | 'success' | 'info';
+  }[];
 };
 
 export type User = {

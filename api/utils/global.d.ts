@@ -8,6 +8,7 @@ declare global {
       parsedQuery: any;
       parsedPath: any;
       responseData: any;
+      paramUser: User;
     }
   }
 }

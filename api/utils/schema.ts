@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose";
 import { isStrongPassword } from "validator";
 import { z } from "zod";
 
@@ -59,53 +60,96 @@ export const GetUsersSchema = z.object({
 
 export const SuperuserUserResponseSchema = z.object({
   user: z.object({
-    id: z.string(),
+    _id: z.custom<ObjectId>(),
     name: z.string(),
     email: z.string(),
     role: z.string(),
     isEmailVerified: z.boolean(),
-    emailVerificationCode: z.string(),
-    password: z.string(),
   }),
 });
 
 export const SuperuserUsersResponseSchema = z.object({
   users: z.array(
     z.object({
-      id: z.string(),
+      _id: z.custom<ObjectId>(),
       name: z.string(),
       email: z.string(),
       role: z.string(),
       isEmailVerified: z.boolean(),
-      emailVerificationCode: z.string(),
-      password: z.string(),
     })
   ),
 });
 
 export const SuperuserCreateUserSchema = z
   .object({
-    name: z.string({ message: "Name is required" }).min(1, {
+    name: z.string().min(1, {
       message: "Name is required",
     }),
-    email: z.string({ message: "Email is required" }).email({
+    email: z.string().email({
       message: "Invalid email",
     }),
-    password: z.string({ message: "Password is required" }).min(1, {
+    password: z.string().min(1, {
       message: "Password is required",
     }),
     confirmPassword: z.string({ message: "Confirm password is required" }),
     isEmailVerified: z.boolean({ message: "Email verified is required" }),
-    role: z.string({ message: "Role is required" }).min(1, {
-      message: "Role is required",
-    }),
-    emailVerificationCode: z
-      .string({ message: "Email verification code is required" })
+    role: z
+      .string({ message: "Role is required" })
       .min(1, {
-        message: "Email verification code is required",
+        message: "Role is required",
+      })
+      .refine((value) => ["admin", "seller", "customer"].includes(value), {
+        message: "Invalid role",
       }),
+    sendVerificationEmail: z.boolean({
+      message: "Send verification email is required",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const SuperuserEditUserSchema = z
+  .object({
+    name: z.string().optional(),
+    email: z.string().email().optional(),
+    password: z.string().optional(),
+    confirmPassword: z.string().optional(),
+    isEmailVerified: z.boolean().optional(),
+    role: z
+      .string()
+      .optional()
+      .refine(
+        (value) => {
+          if (!value) return true;
+          return ["admin", "seller", "customer"].includes(value);
+        },
+        {
+          message: "Invalid role",
+        }
+      ),
+    sendVerificationEmail: z
+      .boolean({
+        message: "Send verification email is required",
+      })
+      .optional(),
+  })
+  .refine(
+    (data) => {
+      if (!data.password || !data.confirmPassword) return true;
+      return data.password === data.confirmPassword;
+    },
+    {
+      message: "Passwords do not match",
+      path: ["confirmPassword"],
+    }
+  );
+
+export const SuperuserEditUserParamsSchema = z.object({
+  _id: z.string().min(1, {
+    message: "User ID is required",
+  }),
+});
+
+export const EmptyResponseSchema = z.object({});

@@ -1,36 +1,59 @@
-"use client";
+'use client';
 
-import { ToastContextType } from "@/utils/types";
-import { createContext, useCallback, useContext, useState } from "react";
+import { ToastContextType } from '@/utils/types';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 export const ToastContext = createContext<ToastContextType>({
   isOpen: false,
-  toastMessage: "",
-  toastType: "success",
+  toastMessage: '',
+  toastType: 'success',
   triggerToast: () => {},
-  toastTitle: "",
+  toastTitle: '',
   setToastTitle: () => {},
+  allToasts: [],
 });
 
 const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [toastType, setToastType] = useState<"error" | "success" | "info">(
-    "success"
+  const [toastType, setToastType] = useState<'error' | 'success' | 'info'>(
+    'success'
   );
-  const [toastMessage, setToastMessage] = useState<string>("");
-  const [toastTitle, setToastTitle] = useState<string>("");
+  const [toastMessage, setToastMessage] = useState<string>('');
+  const [toastTitle, setToastTitle] = useState<string>('');
+  const [allToasts, setAllToasts] = useState<
+    {
+      message: string;
+      type: 'error' | 'success' | 'info';
+    }[]
+  >([]);
 
   const triggerToast = useCallback(
-    (toastMessage: string, toastType: "error" | "success" | "info") => {
-      setIsOpen(true);
-      setToastMessage(toastMessage);
-      setToastType(toastType);
+    (toastMessage: string, toastType: 'error' | 'success' | 'info') => {
+      setAllToasts((prev) => [
+        ...prev,
+        { message: toastMessage, type: toastType },
+      ]);
       setTimeout(() => {
-        setIsOpen(false);
+        setAllToasts(allToasts.slice(1));
       }, 3000);
     },
-    []
+    [allToasts]
   );
+
+  useEffect(() => {
+    if (allToasts.length > 0) {
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
+    }
+  }, [allToasts]);
 
   return (
     <ToastContext.Provider
@@ -41,6 +64,7 @@ const ToastProvider = ({ children }: { children: React.ReactNode }) => {
         triggerToast,
         toastTitle,
         setToastTitle,
+        allToasts,
       }}
     >
       {children}

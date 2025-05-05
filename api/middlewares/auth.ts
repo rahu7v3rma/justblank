@@ -51,3 +51,20 @@ export const isSuperUserMiddleware: RequestHandler = async (
   }
   next();
 };
+
+export const verifyParamUserMiddleware: RequestHandler = async (
+  req: UserRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { _id } = req.params;
+  const user = await UserModel.findById(_id);
+  if (!user) {
+    res
+      .status(404)
+      .json({ success: false, message: "User not found", data: null });
+    return;
+  }
+  req.paramUser = user;
+  next();
+};

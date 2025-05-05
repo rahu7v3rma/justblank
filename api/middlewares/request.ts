@@ -37,7 +37,7 @@ export const requestQueryParse =
     next();
   };
 
-export const requestPathParse =
+export const requestParamsParse =
   (schema: ZodSchema): RequestHandler =>
   (req, res, next) => {
     const parsedPath = schema.safeParse(req.params);
